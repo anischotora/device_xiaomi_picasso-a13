@@ -8,14 +8,14 @@
 
 set -e
 
-DEVICE=picasso
+DEVICE=picasso_48m
 VENDOR=xiaomi
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "${MY_DIR}" ]]; then MY_DIR="${PWD}"; fi
 
-ANDROID_ROOT="${MY_DIR}/../../.."
+ANDROID_ROOT="${MY_DIR}/../../../.."
 
 HELPER="${ANDROID_ROOT}/tools/extract-utils/extract_utils.sh"
 if [ ! -f "${HELPER}" ]; then
@@ -55,16 +55,16 @@ fi
 
 function blob_fixup() {
     case "${1}" in
-        vendor/etc/init/init.batterysecret.rc)
-            sed -i "/seclabel/d" "${2}"
-            ;;
         vendor/lib64/vendor.qti.hardware.camera.postproc@1.0-service-impl.so)
-            hexdump -ve '1/1 "%.2X"' "${2}" | sed "s/210080529A0A0094/210080521F2003D5/g" | xxd -r -p > "${TMPDIR}/${1##*/}"
-            mv "${TMPDIR}/${1##*/}" "${2}"
+            hexdump -ve '1/1 "%.2X"' "${2}" | sed "s/210080529A0A0094/210080521F2003D5/g" | xxd -r -p > "${EXTRACT_TMP_DIR}/${1##*/}"
+            mv "${EXTRACT_TMP_DIR}/${1##*/}" "${2}"
             ;;
         vendor/lib64/camera/components/com.mi.node.watermark.so)
-            "${PATCHELF}" --add-needed "lib-watermarkshim.so" "${2}"
+            "${PATCHELF}" --add-needed "libwatermark_shim.so" "${2}"
             ;;
+        vendor/lib64/camera/components/com.mi.node.superlowlightraw.so)
+            "${PATCHELF}" --add-needed "libweakcount_shim.so" "${2}"
+	        ;;
     esac
 }
 

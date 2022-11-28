@@ -22,9 +22,6 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a76
 
-# Assert
-TARGET_OTA_ASSERT_DEVICE := picasso
-
 # Audio
 TARGET_USE_MUSICFX := false
 USE_XML_AUDIO_POLICY_CONF := 1

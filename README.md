@@ -1,11 +1,11 @@
-![crDroid](http://i.imgur.com/BE3pE0l.png "crDroid")
+![pixel](https://imgur.com/phIk5MXl.png "pixel")
 
-crDroid 9.x (A13/T) for Redmi K30 5G (picasso)
+pixel experince A13 for Redmi K30 5G (picasso)
 ======================================
 
 # How to build
 
-Download crDroid's source and picasso repos. You can have a look at my manifest:
+Download pixel experince source and picasso repos. You can have a look at my manifest:
 
 https://github.com/masemoel/local_manifests/blob/master/picasso_t.xml
 
@@ -13,7 +13,8 @@ Then go to the source folder and run:
 
 ```bash
 . build/envsetup.sh
-brunch picasso
+lunch aosp_picasso-userdebug
+m bacon -j$(nproc -all)
 ```
 
 # Device specifications
